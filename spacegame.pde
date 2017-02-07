@@ -4,7 +4,7 @@ Space space;
 
 void setup() {
     size(500, 800); //<>//
-    space = new Space(500, 800, 20, 10, 3);
+    space = new Space(500, 800, 20, 10, 5);
 } 
 
 void draw () {

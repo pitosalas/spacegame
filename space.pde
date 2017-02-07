@@ -11,8 +11,8 @@ class Space {
     spaceMaxX = w; //<>//
     spaceMaxY = h;
     quadrants = new ArrayList<Quadrant>();
-    shipImage = loadImage("spaceship.jpg");
-    shipImage.resize(10,10);
+    shipImage = loadImage("spaceship.png");
+    shipImage.resize(20,20);
     createStars(stars);
     createPlanets(planets);
     createShips(ships, shipImage);
