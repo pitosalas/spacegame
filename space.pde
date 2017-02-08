@@ -35,7 +35,7 @@ class Space {
     
   void drawQuads() {
     for (Quadrant q: quadrants) {
-      q.draw();
+      q.draw(time);
     }
   }
      //<>//

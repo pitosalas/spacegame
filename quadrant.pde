@@ -43,9 +43,9 @@ class Quadrant {
     return y;
   }
   
-  void draw() {
+  void draw(int time) {
     if (star != null) {
-      star.draw(x, y);
+      star.draw(time, x, y);
     } else if (planet != null) {
       planet.draw(x, y);
     } else if (ship != null) {
