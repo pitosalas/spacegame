@@ -1,10 +1,11 @@
-class Ship {
+class Ship extends Entity {
   PImage image;
-  Ship(PImage img) {
+  Ship(PImage img, Body bod) {
+    super(bod);
     this.image = img;
   }
 
-  void draw(int x, int y) {
-    image(image, x, y);
+  void draw(int time) {
+    image(image, body.loc.x, body.loc.y);
   }
 }

@@ -5,17 +5,18 @@ class Space {
   int spaceMaxX;
   int spaceMaxY;
   PImage shipImage;
-  ArrayList<Quadrant> quadrants;
+  ArrayList<Entity> entities;
   
   Space(int w, int h, int stars, int planets, int ships) {
     spaceMaxX = w; //<>//
     spaceMaxY = h;
-    quadrants = new ArrayList<Quadrant>();
+    entities = new ArrayList<Entity>();
+    
     shipImage = loadImage("spaceship.png");
     shipImage.resize(20,20);
     createStars(stars);
-    createPlanets(planets);
-    createShips(ships, shipImage);
+    //createPlanets(planets);
+    //createShips(ships, shipImage);
   } //<>//
   
   void update() {
@@ -24,7 +25,7 @@ class Space {
   
   void draw() {
     drawStatusPanel();
-    drawQuads();
+    drawEntities();
   } //<>//
   
   void drawStatusPanel() {
@@ -33,54 +34,51 @@ class Space {
     text("time: " + time + " hours ", 20, 20);
   }
     
-  void drawQuads() {
-    for (Quadrant q: quadrants) {
+  void drawEntities() {
+    for (Entity q: entities) {
       q.draw(time);
     }
   }
      //<>//
   void createStars(int count) {
     for (int i = 0; i < count; i++) {
-      int x = new Random().nextInt(spaceMaxX);
-      int y = new Random().nextInt(spaceMaxY);
-      Quadrant homeq = findAt(x, y);
-       if (homeq.isFree()) {
-         homeq.add(new Star());
-       }
-    }
-  }
-  
-    void createPlanets(int count) {
-    for (int i = 0; i < count; i++) {
-      int x = new Random().nextInt(spaceMaxX);
-      int y = new Random().nextInt(spaceMaxY);
-      Quadrant homeq = findAt(x, y);
-      println("planet " + x + "," + y);
-      if (homeq.isFree()) {
-        homeq.add(new Planet());
-       }  
-     }
-  }
-  
-  void createShips(int count, PImage img) {
-    for (int i = 0; i < count; i++) {
-      int x = new Random().nextInt(spaceMaxX);
-      int y = new Random().nextInt(spaceMaxY);
-      Quadrant homeq = findAt(x, y);
-      if (homeq.isFree()) {
-        homeq.add(new Ship(img));
-       }  
-     }
-  }
-  
-  Quadrant findAt(int x, int y) {
-    for (Quadrant q: quadrants) {
-     if (q.getX() == x && q.getY() == y) {
-        return q;
+      Body newBody = new Body(new Random().nextInt(spaceMaxX), new Random().nextInt(spaceMaxY));
+      if (!tooClose(newBody)) {
+        entities.add(new Star(newBody));
       }
     }
-    Quadrant newq = new Quadrant(x, y);
-    quadrants.add(newq);
-    return newq;
   }
+  
+  boolean tooClose(Body newBody) {
+    boolean tooClose = false;
+    for (Entity e: entities) {
+      if (e.body.distanceTo(newBody) < 12) {
+        tooClose = true;
+        break;
+      }
+    }
+    return tooClose;
+  }
+  
+    //void createPlanets(int count) {
+    //for (int i = 0; i < count; i++) {
+    //  int x = new Random().nextInt(spaceMaxX);
+    //  int y = new Random().nextInt(spaceMaxY);
+    //  println("planet " + x + "," + y);
+    //  if (homeq.isFree()) {
+    //    homeq.add(new Planet());
+    //   }  
+    // }
+//  }
+//  //
+ //id createShips(int count, PImage img) {
+    //for (int i = 0; i < count; i++) {
+    //  int x = new Random().nextInt(spaceMaxX);
+    //  int y = new Random().nextInt(spaceMaxY);
+    //  Quadrant homeq = findAt(x, y);
+    //  if (homeq.isFree()) {
+    //    homeq.add(new Ship(img));
+    //   }  
+    // }
+  //}
 }

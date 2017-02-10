@@ -1,6 +1,10 @@
-class Planet {
-  void draw(int x, int y) {
+class Planet extends Entity {
+  Planet(Body bod) {
+    super(bod);
+  }
+  
+  void draw(int time) {
     fill(#227E48);
-    ellipse(x, y, 10, 10);
+    ellipse(body.loc.x, body.loc.y, 10, 10);
   }
 }

@@ -1,10 +1,14 @@
-class Star {
+class Star extends Entity {
   
-  void draw(int time, int x, int y) {
+  Star(Body body) {
+    super(body);
+  }
+  
+  void draw(int time) {
     fill(#FFFFFF);
     int size = 7;
     if (starOn(time)) {
-      ellipse(x, y, size, size);
+      ellipse(body.loc.x, body.loc.y, size, size);
     }  
   }
   
