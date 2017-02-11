@@ -15,5 +15,10 @@ class Star extends Entity {
   boolean starOn(int time) {
     return (time % 100 <  75);
   }
+  
+  void update(int time) {
+  }
+  
+  
 
 }

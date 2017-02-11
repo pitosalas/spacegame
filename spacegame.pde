@@ -3,8 +3,8 @@
 Space space;
 
 void setup() {
-    size(500, 800);
-    space = new Space(500, 800, 10, 10, 5);
+    size(500, 500);
+    space = new Space(500, 500, 10, 10, 5);
 } 
 
 void draw () {
