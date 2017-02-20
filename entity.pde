@@ -1,15 +1,12 @@
-class Entity {
-  Body body;
-
-  Entity(Body given) {
-    this.body = given;
+abstract class Entity {
+  protected Body body;
+  abstract void draw();
+  
+  int distanceTo(Vec2 other) {
+    return 100;
   }
   
-  void draw(int time) {
-    print("not calling draw in entity");
-  }
-  
-  void update(int time) {
-    throw new RuntimeException();
+  void setBody(Body bod) {
+    body = bod;
   }
 }

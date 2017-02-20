@@ -1,15 +1,13 @@
 class Ship extends Entity {
   PImage image;
-  Ship(PImage img, Body bod) {
-    super(bod);
+  Ship(PImage img, Vec2 loc) {
     this.image = img;
-  }
-  
-  void update(int time) {
-    body.update(time);
+    phys.createShip(loc, this);
   }
 
-  void draw(int time) {
-    image(image, body.loc.x, body.loc.y);
+  void draw() {
+    fill(#FEE00F);
+    Vec2 pos = box2d.getBodyPixelCoord(body);
+    ellipse(pos.x, pos.y, 10, 10);
   }
 }
