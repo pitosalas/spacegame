@@ -1,27 +1,34 @@
-import java.util.Random; //<>//
+import java.util.Random; //<>// //<>// //<>//
 
 class Space {
   int spaceMaxX;
   int spaceMaxY;
   PImage shipImage;
   ArrayList<Entity> entities;
-  //  HashMap<String, Planet> planets;
+  HashMap<String, Planet> planets;
 
-  Space(int w, int h, int nstars, int nplanets, int nships) {
+  Space(int w, int h) {
     spaceMaxX = w;
     spaceMaxY = h;
 
     entities = new ArrayList<Entity>();
-    //planets = new HashMap<String, Planet>();
+    planets = new HashMap<String, Planet>();
 
     shipImage = loadImage("spaceship.png");
     shipImage.resize(20, 20);
-    createStars(nstars);
-    createShips(nships);
-    
-    //    createPlanets(nplanets);
   }
-
+  
+  void createInitialUniverse() {
+    entities.add(new Star(new Vec2(200, 200)));
+    entities.add(new Star(new Vec2(400, 400)));
+    Ship ship = new Ship(shipImage, new Vec2(240,240));
+    ship.setTarget(new Vec2(50, 50));
+    entities.add(ship);
+    Planet planet = new Planet("Jupiter", new Vec2(250, 250));
+    entities.add(planet);
+    planet.addShip(ship);
+  }
+  
   void createStars(int count) {
     for (int i = 0; i < count; i++) {
       Random r = new Random();
@@ -47,6 +54,19 @@ class Space {
       q.draw();
     }
   }
+  
+  void preUpdate() {
+    for (Entity q : entities) {
+      q.preUpdate();
+    }
+  }
+  
+  void postUpdate() {
+    for (Entity q : entities) {
+      q.postUpdate();
+    }
+  }
+  
 
   //void createPlanets(int count) {
   //  for (int i=0; i < count; i++) {
