@@ -1,12 +1,14 @@
+import shiffman.box2d.*;
+
 class Body {
-  PVector loc;
+  Vec2 loc;
   
   Body(float x, float y) {
-    loc = new PVector(x, y);
+    loc = new Vec2(x, y);
   }
   
   Body() {
-    loc = new PVector();
+    loc = new Vec2();
   }
   
   Body setRandomLoc() {
@@ -17,7 +19,7 @@ class Body {
   }
   
   double distanceTo(Body other) {
-    return PVector.dist(loc, other.loc); 
+    return Vec2.dist(loc, other.loc); 
   }
   
   void update(int time) {

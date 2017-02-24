@@ -1,4 +1,5 @@
 // Space Game by Pito Salas
+import shiffman.box2d.*;
 
 Space space;
 
