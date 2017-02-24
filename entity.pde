@@ -62,7 +62,7 @@ abstract class Entity {
   }
 
   void debugOut(String label) {
-    if (frameCount == 1 || frameCount % 15 == 0) {
+    if (frameCount == 1 || frameCount % 100 == 0) {
       println(frameCount + ": " + label);
     }
   }
