@@ -21,12 +21,16 @@ class Space {
   void createInitialUniverse() {
     entities.add(new Star(new Vec2(200, 200)));
     entities.add(new Star(new Vec2(400, 400)));
-    Ship ship = new Ship(shipImage, new Vec2(240,240));
-    ship.setTarget(new Vec2(50, 50));
+
+    Planet earth = new Planet("Earth", new Vec2(100, 25));
+    Planet jupiter = new Planet("Jupiter", new Vec2(400, 460));
+    Ship ship = new Ship(shipImage, earth);
+    ship.setTarget(jupiter);
+    earth.addShip(ship);
+
     entities.add(ship);
-    Planet planet = new Planet("Jupiter", new Vec2(250, 250));
-    entities.add(planet);
-    planet.addShip(ship);
+    entities.add(earth);
+    entities.add(jupiter);
   }
   
   void createStars(int count) {
@@ -67,27 +71,6 @@ class Space {
     }
   }
   
-
-  //void createPlanets(int count) {
-  //  for (int i=0; i < count; i++) {
-  //    createAPlanet(null);
-  //  }
-  //}
-
-  //void createAPlanet(String name) {
-  //  Planet planet = new Planet(name, null);
-  //  if (name == null) planet.setRandomName();
-  //  Body planetBody;
-  //  do {
-  //     planetBody = new Body().setRandomLoc();
-  //  } while (tooClose(planetBody));
-  //  planet.body = planetBody;
-  //  println(planet);
-  //  planets.put(name, planet);
-  //  entities.add(planet);
-  //}
-
-
    // This is very inefficient but the number of entities we have will be less than 100 so it's acceptable.
   boolean tooClose(Vec2 newloc) {
     boolean tooClose = false;

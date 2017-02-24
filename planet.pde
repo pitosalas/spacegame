@@ -19,8 +19,11 @@ class Planet extends Entity {
   String toString() {
     return ("Planet " + name + " " + body.toString());
   }
+  
+  String getName() { return name; } 
 
   void addShip(Ship aShip) {
     ships.add(aShip);
+    aShip.setOnPlanet(this);
   }
 }
