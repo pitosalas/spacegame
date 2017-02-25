@@ -28,7 +28,6 @@ class Ship extends Entity {
   }
 
   void postUpdate() {
-    //applyForce(-1.0);
   }
 
   void drawState() {
@@ -54,10 +53,4 @@ class Ship extends Entity {
     this.planet = planet;
   }
 
-
-  void debugOut(String label) {
-    if (frameCount == 1 || frameCount % 100 == 0) {
-      println(frameCount + ": " + label);
-    }
-  }
 }

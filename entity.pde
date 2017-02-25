@@ -1,11 +1,7 @@
 abstract class Entity {
   protected Body body;
 
-  int distanceTo(Vec2 other) {
-    return 100;
-  }
-
-  void setBody(Body bod) {
+void setBody(Body bod) {
     body = bod;
   }
 
@@ -62,8 +58,8 @@ abstract class Entity {
   }
 
   void debugOut(String label) {
-    if (frameCount == 1 || frameCount % 100 == 0) {
-      println(frameCount + ": " + label);
-    }
+    //if (frameCount == 1 || frameCount % 100 == 0) {
+    //  println(frameCount + ": " + label);
+    //}
   }
 }

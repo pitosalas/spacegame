@@ -4,6 +4,7 @@ class Space {
   int spaceMaxX;
   int spaceMaxY;
   PImage shipImage;
+  
   ArrayList<Entity> entities;
   ArrayList<Planet> planets;
   ArrayList<Star> stars;
@@ -42,27 +43,7 @@ class Space {
     entities.add(earth); planets.add(earth);
     entities.add(jupiter); planets.add(jupiter);
   }
-  
-  void createStars(int count) {
-    for (int i = 0; i < count; i++) {
-      Random r = new Random();
-      Vec2 loc = new Vec2(r.nextFloat() * width, r.nextFloat() * height);
-      if (!tooClose(loc)) {
-        entities.add(new Star(loc));
-      }
-    }
-  }
-
- void createShips(int count) {
-    for (int i = 0; i < count; i++) {
-      Random r = new Random();
-      Vec2 loc = new Vec2(r.nextFloat() * width, r.nextFloat() * height);
-      if (!tooClose(loc)) {
-        entities.add(new Ship(shipImage, loc));
-      }
-    }
-  }
-
+ 
   void draw() {
     for (Star s: stars) s.draw();
     for (Planet p: planets) p.draw();
@@ -79,17 +60,5 @@ class Space {
     for (Entity q : entities) {
       q.postUpdate();
     }
-  }
-  
-   // This is very inefficient but the number of entities we have will be less than 100 so it's acceptable.
-  boolean tooClose(Vec2 newloc) {
-    boolean tooClose = false;
-    for (Entity e : entities) {
-      if (e.distanceTo(newloc) < 25) {
-        tooClose = true;
-        break;
-      }
-    }
-    return tooClose;
-  }
+  }  
 }
