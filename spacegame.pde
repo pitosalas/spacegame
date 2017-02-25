@@ -16,11 +16,9 @@ void setup() {
 } 
 
 void draw () {
-  space.preUpdate();
   background(0);
   phys.step();  
   space.draw();
-  space.postUpdate();
   drawBoundaries();
 }
 

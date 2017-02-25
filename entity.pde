@@ -1,7 +1,7 @@
 abstract class Entity {
   protected Body body;
 
-void setBody(Body bod) {
+  void setBody(Body bod) {
     body = bod;
   }
 
@@ -23,21 +23,11 @@ void setBody(Body bod) {
 
   void draw() {
   }
-  void preUpdate() {
-  }
-  void postUpdate() {
-  }
 
   void steerTo(Vec2 wTarget, float maxSpeed) {
     Vec2 desired = wTarget.sub(getWposition());
     float desiredMag = desired.length();
     desired.normalize();
-
-    debugOut("Target world: " + wTarget);    
-    debugOut("Current Pos" + getWposition());
-    debugOut("Velocity: " + getVelocity());    
-    debugOut("Desired Prenorm: " + desired);
-    debugOut("Desired Normalized: " + desired);
 
     if (desiredMag < 10) {
       float m = map(desiredMag, 0, 100, 0, maxSpeed);
@@ -52,6 +42,24 @@ void setBody(Body bod) {
     debugOut("-----------------");
   }
 
+  void cruiseTo(Vec2 wTarget, float maxSpeed) {
+    Vec2 desired = wTarget.sub(getWposition());
+    desired.normalize();
+    desired.mulLocal(maxSpeed);
+    Vec2 steer = desired.sub(getVelocity()); 
+    applyForce(steer);
+  }
+
+  void approach(Vec2 wTarget, float maxSpeed) {
+    Vec2 desired = wTarget.sub(getWposition());
+    float desiredMag = desired.length();
+    float mapSpeed = map(desiredMag, 0, 100, 0, maxSpeed);
+    desired.mulLocal(mapSpeed);
+    Vec2 steer = desired.sub(getVelocity()); 
+    applyForce(steer);
+  }
+
+
   void applyForce(Vec2 force) {
     debugOut("Apply Force: " + force);
     body.applyForceToCenter(force);
@@ -61,5 +69,10 @@ void setBody(Body bod) {
     //if (frameCount == 1 || frameCount % 100 == 0) {
     //  println(frameCount + ": " + label);
     //}
+  }
+
+  void printState() {
+    debugOut("Current Pos" + getWposition());
+    debugOut("Velocity: " + getVelocity());    
   }
 }

@@ -1,23 +1,14 @@
 
 class Ship extends Entity {
   PImage image;
-  float maxSpeed;
-  Vec2 pTarget, wTarget;
-  Entity target;
+  StateMachine currentState;
   Planet planet;
 
-  Ship(PImage img, Vec2 loc) {
+  Ship(PImage img, Planet p, State s) {
     this.image = img;
-    phys.createShip(loc, this);
-    maxSpeed = 10.0;
-  }
-  
-  Ship(PImage img, Planet loc) {
-    this(img, loc.getPposition());
-  }
-
-  void preUpdate() {
-    steerTo(target.getWposition(), maxSpeed);
+    phys.createShip(p.getWposition(), this);
+    currentState = new StateMachine();
+    currentState.setCurrentState(s);
   }
 
   void draw() {
@@ -27,30 +18,15 @@ class Ship extends Entity {
     drawState();
   }
 
-  void postUpdate() {
-  }
-
   void drawState() {
     textSize(12);
     Vec2 vel = body.getLinearVelocity();
     String s = String.format("v: %2.1f, %2.1f", vel.x, vel.y);
-    if (target != null) 
-      s += " -> " + target.getName();
     Vec2 loc = getPposition();
     text(s, loc.x+10, loc.y);
   }
-
-  void setTarget(Vec2 target) {
-    this.pTarget = target;
-    wTarget = box2d.coordPixelsToWorld(target);
-  }
-
-  void setTarget(Planet p) {
-    target = p;
-  }
-
+  
   void setOnPlanet(Planet planet) {
     this.planet = planet;
   }
-
 }
