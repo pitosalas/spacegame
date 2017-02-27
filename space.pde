@@ -1,4 +1,4 @@
-import java.util.Random; //<>// //<>// //<>// //<>// //<>//
+import java.util.Random; //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 
 class Space {
   int spaceMaxX;
@@ -36,10 +36,11 @@ class Space {
     entities.add(star3); 
     stars.add(star3);
 
-    Planet earth = new Planet("Earth", new Vec2(100, 25));
-    Planet jupiter = new Planet("Jupiter", new Vec2(400, 460));
-    CruiseState<Ship> cruise = new CruiseState<Ship>(jupiter);
-    Ship ship = new Ship(shipImage, earth, cruise);
+    Planet earth = new Planet("Earth", new Vec2(25, 300));
+    Planet jupiter = new Planet("Jupiter", new Vec2(389, 112));
+    Ship ship = new Ship("Apollo", shipImage, earth);
+    CruiseState<Entity> cruise = new CruiseState<Entity>(jupiter, ship);
+    ship.stateMachine.setCurrentState(cruise);
     earth.addShip(ship);
 
     entities.add(ship); 

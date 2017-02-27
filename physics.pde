@@ -58,6 +58,7 @@ class Physics {
   }
 
   void createShip(Vec2 loc, Entity ent) {
+    println("createship: " + loc + " Ent: " + ent);
     BodyDef bd = buildBodyDef(loc);
     CircleShape cs = buildCircleShape(5);
     FixtureDef fd = buildFixture(cs);

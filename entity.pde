@@ -16,30 +16,22 @@ abstract class Entity {
   Vec2 getVelocity() {
     return (body.getLinearVelocity());
   }
+  
+  void setVelocityZero() {
+    body.setLinearVelocity(new Vec2());
+  }
+  
+  void setLocation(Entity target) {
+    body.setTransform(target.body.getPosition(),0);
+  }
+
+  
 
   String getName() { 
     return "";
   }
 
   void draw() {
-  }
-
-  void steerTo(Vec2 wTarget, float maxSpeed) {
-    Vec2 desired = wTarget.sub(getWposition());
-    float desiredMag = desired.length();
-    desired.normalize();
-
-    if (desiredMag < 10) {
-      float m = map(desiredMag, 0, 100, 0, maxSpeed);
-      desired.mulLocal(m);
-    } else {
-      desired.mulLocal(maxSpeed);
-    }
-    debugOut("Desired mapped to max speed: " + desired);
-    Vec2 steer = desired.sub(getVelocity()); 
-    debugOut("Steer: " + steer);
-    applyForce(steer);
-    debugOut("-----------------");
   }
 
   void cruiseTo(Vec2 wTarget, float maxSpeed) {
@@ -50,7 +42,7 @@ abstract class Entity {
     applyForce(steer);
   }
 
-  void approach(Vec2 wTarget, float maxSpeed) {
+  void arriveAt(Vec2 wTarget, float maxSpeed) {
     Vec2 desired = wTarget.sub(getWposition());
     float desiredMag = desired.length();
     float mapSpeed = map(desiredMag, 0, 100, 0, maxSpeed);
@@ -61,7 +53,7 @@ abstract class Entity {
 
 
   void applyForce(Vec2 force) {
-    debugOut("Apply Force: " + force);
+    //debugOut("Apply Force: " + force);
     body.applyForceToCenter(force);
   }
 

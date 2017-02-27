@@ -4,13 +4,15 @@ class StateMachine<E extends Entity> {
   State<E> previousState;
   State<E> globalState;
   
-  void setCurrentState(State<E> s) { currentState = s; }
+  StateMachine(E owner) { this.owner = owner; }
+ 
+  void setCurrentState(State<E> s) { currentState = s; println("Entering:" + s); }
   void setGloblState(State<E> s) { globalState = s; }
   void setPreviousState(State<E> s) { previousState = s; }
   
   void update() {
-    if (globalState != null) globalState.execute(owner);
-    if (currentState != null) currentState.execute(owner);
+    if (globalState != null) globalState.update(owner);
+    if (currentState != null) currentState.update(owner);
   }
   
   void changeState(State<E> newState) {
@@ -27,4 +29,8 @@ class StateMachine<E extends Entity> {
   
   boolean isInState(State<E> s) { return currentState == s; }
   
+  String getCurStateInfo() {
+    return currentState.getStateInfo();
+  }
+    
 }

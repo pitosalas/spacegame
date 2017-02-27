@@ -1,5 +1,16 @@
 abstract class State<E extends Entity> {
-  abstract void enter(E entity);
-  abstract void execute(E entity);
-  abstract void exit(E entity);
+  E owner;
+
+  void enter(E entity) { }
+  void update(E entity) { }
+  void exit(E entity) { }
+
+  
+  String getStateInfo() { 
+    return "";
+  }
+
+  State(E e) {
+    owner = e;
+  }
 }

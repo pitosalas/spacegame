@@ -1,23 +1,38 @@
-class CruiseState<E extends Entity> extends State<E> {
-  
-  Planet target;
+class CruiseState<E extends Entity> extends State<E> { //<>//
+
+  E target;
   float maxSpeed;
-  
-  CruiseState(Planet theTarget) {
+
+  CruiseState(E theTarget, E owner) {
+    super(owner);
     target = theTarget;
-    maxSpeed = 10.0;
-  }
-  
-  void execute(E ship) {
-    ship.cruiseTo(target.getWposition(), maxSpeed);    
+    maxSpeed = 15.0;
   }
 
+  void update(E ship) {
+    if (distanceToTarget() > 10) {
+      ship.cruiseTo(target.getWposition(), maxSpeed);
+    } else {
+      State newState = new ArriveState(target, owner);
+      ((Ship)owner).stateMachine.setCurrentState(newState);
+    }
+  }
+
+  float distanceToTarget() {
+    return (target.getWposition().sub(owner.getWposition())).length();
+  }
+  
   void enter(E ship) {
-    print("Entering CruiseSate");
   }
 
   void exit(E ship) {
-    print("Exiting CruiseSate");
   }
 
+  String toString() { 
+    return "CruiseState";
+  }
+
+  String getStateInfo() { 
+    return String.format("%3.1f", distanceToTarget());
+  }
 }
